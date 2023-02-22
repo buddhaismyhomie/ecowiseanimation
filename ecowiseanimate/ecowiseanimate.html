@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <style>
+      /* opaque with layover */
+
+      .opaque {
+        background-color: white;
+        opacity: 0.25;
+      }
+
+      .container_animation {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 0px;
+        margin: 0px !important;
+      }
+
+      .text {
+        width: 50%;
+      }
+
+      .displaynone {
+        display: none;
+      }
+
+      /* #skills is the image container */
+
+      #skills {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        width: 50%;
+        height: auto;
+        margin: 0% 6% 0% 6%;
+        justify-self: center;
+      }
+      /* circle class is for all segment div */
+      .circle {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        position: absolute;
+      }
+
+      .animate {
+        -webkit-transition: 0.2s cubic-bezier(0.74, 1.13, 0.83, 1.2);
+        -moz-transition: 0.2s cubic-bezier(0.74, 1.13, 0.83, 1.2);
+        -o-transition: 0.2s cubic-bezier(0.74, 1.13, 0.83, 1.2);
+        transition: 0.2s cubic-bezier(0.74, 1.13, 0.83, 1.2);
+      }
+
+      .animate:hover {
+        transform: scale(1.1);
+        transform-origin: center center;
+      }
+
+      /* five segments going clockwise */
+
+      #part1 {
+        background-color: #8dc044;
+        -webkit-clip-path: polygon(50% 0, 50% 50%, 100% 35%, 100% 0);
+        clip-path: polygon(50% 0, 50% 50%, 100% 35%, 100% 0);
+      }
+
+      #part2 {
+        background-color: #d0e2b2;
+        -webkit-clip-path: polygon(50% 50%, 100% 35%, 100% 100%, 100% 124%);
+        clip-path: polygon(50% 50%, 100% 35%, 100% 100%, 100% 124%);
+      }
+
+      #part3 {
+        background-color: #b9d68c;
+        -webkit-clip-path: polygon(50% 50%, 00% 113%, 85% 100%);
+        clip-path: polygon(50% 50%, 00% 113%, 85% 100%);
+      }
+
+      #part4 {
+        background-color: #f2d7e8;
+        -webkit-clip-path: polygon(50% 50%, -8% 28%, 11% 100%);
+        clip-path: polygon(50% 50%, -8% 28%, 11% 100%);
+      }
+
+      #part5 {
+        background-color: #c8e8fa;
+        -webkit-clip-path: polygon(50% 50%, 10% -100000%, 0% 31.5%);
+        clip-path: polygon(50% 50%, 10% -100000%, 0% 31.5%);
+      }
+
+      .emissions {
+        position: absolute;
+        top: 10%;
+        left: 23%;
+        height: 20%;
+        width: 20%;
+      }
+      .circular {
+        position: absolute;
+        top: 10%;
+        left: 60%;
+        height: 20%;
+        width: 20%;
+      }
+      .only_circular {
+        height: 20px !important;
+      }
+
+      .renewable {
+        position: absolute;
+        top: 50%;
+        left: 70%;
+        height: 20%;
+        width: 20%;
+      }
+
+      .energy {
+        position: absolute;
+        top: 73%;
+        left: 40%;
+        height: 20%;
+        width: 20%;
+      }
+
+      .safer {
+        position: absolute;
+        top: 48%;
+        left: 10%;
+        height: 20%;
+        width: 20%;
+      }
+
+      .goals {
+        z-index: 1;
+        position: absolute;
+        top: 30%;
+        left: 30%;
+        height: 40%;
+        width: 40%;
+      }
+
+      .circle_outline {
+        z-index: 0;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        transform: rotate(0deg) scale(1.08);
+        /* transform: scale(1); */
+        transform-origin: center;
+      }
+
+      /* text styling */
+
+      .pillars_text {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 300;
+        font-size: 1.2rem;
+        line-height: 2rem;
+      }
+
+      /* dynamic text styling */
+
+      #circular_text {
+        border: 2px #8dc044 solid;
+        padding: 20px 50px;
+      }
+
+      #renewable_text {
+        border: 2px #cfe1b2 solid;
+        padding: 20px 50px;
+      }
+
+      #energy_text {
+        border: 2px #b9d68c solid;
+        padding: 20px 50px;
+      }
+
+      #safer_text {
+        border: 2px #f2d7e8 solid;
+        padding: 20px 50px;
+      }
+
+      #emissions_text {
+        border: 2px #c8e8fa solid;
+        padding: 20px 50px;
+      }
+
+      .sustainable_goals_img {
+        margin: 0 0;
+        height: 80%;
+        width: 80%;
+      }
+
+      .box_heading {
+        display: flex;
+        align-items: center;
+        padding-bottom:10%;
+      }
+
+      .box_heading_image {
+        height: 20%;
+        width: 20%;
+        padding-right: 5%;
+      }
+
+      @media screen and (max-width: 1200px) {
+        .container {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+  @media screen and (max-width: 767px) {
+        #standard_text {
+          display: none;
+        }
+        .container_animation {
+          flex-direction: column;
+        }
+
+        #skills {
+          order: 1;
+          margin-bottom: 30px;
+          width:80%;
+        }
+        .text {
+          order: 2;
+          width: 90%;
+        }
+        #emissions_text,
+        #safer_text,
+        #energy_text,
+        #renewable_text,
+        #circular_text {
+          padding: 5px 10px;
+        }
+      }
+    </style>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container_animation">
+      <div class="text">
+        <div id="standard_text">
+          <p class="pillars_text">
+            It is our responsibility to protect the planet in which we all live. 
+			Being ECOWISE™ is the best way to be part of the solution – and that’s exactly what our initiative and ECOWISE™ branded products help everyone to do. 
+			They spring from our <strong>deep commitment to a more sustainable future.</strong> They are also living proof that, with our broad range of technologies and sustainable focus, we are the ideal partner for successfully transiting to sustainable solutions for the future needs.
+			<br>
+			<br>
+			We are committed to improving the sustainability proposition of our products by taking action along the five high priority areas.
+          	<br>
+			<br>
+			Here are the five sustainability pillars of allnex. <strong>Hover over any section for more info</strong>
+			</p>
+        </div>
+        <div class="displaynone" id="circular_text">
+          <div class="box_heading">
+            <img
+              class="box_heading_image"
+              src="/wp-content/uploads/allnex-ecowise-icons-sustainability-programm-03.svg"
+              alt=""
+            />
+            <h3>Circular economy</h3>
+          </div>
+          <p class="pillars_text">
+            We continuously look for innovative ways to reduce resource
+            consumption, maximize their lifespan, and then finally recover and
+            recycle them at the end of service life
+          </p>
+        </div>
+        <div class="displaynone" id="renewable_text">
+          <div class="box_heading">
+            <img
+              class="box_heading_image"
+              src="/wp-content/uploads/allnex-ecowise-icons-sustainability-programm-05.svg"
+              alt=""
+            />
+            <h3>Renewable sourcing</h3>
+          </div>
+          <p class="pillars_text">
+            We believe in using finite resources sparingly and aim to minimize
+            climate impacts by finding renewable alternatives for energy and raw
+            materials
+          </p>
+        </div>
+        <div class="displaynone" id="energy_text">
+          <div class="box_heading">
+            <img
+              class="box_heading_image"
+              src="/wp-content/uploads/allnex-ecowise-icons-sustainability-programm-02.svg"
+              alt=""
+            />
+            <h3>Energy efficiency</h3>
+          </div>
+
+          <p class="pillars_text">
+            Our product and manufacturing methods are designed to utilize energy
+            efficiency across the full lifecycle of a product
+          </p>
+        </div>
+        <div class="displaynone" id="safer_text">
+          <div class="box_heading">
+            <img
+              class="box_heading_image"
+              src="/wp-content/uploads/allnex-ecowise-icons-sustainability-programm-04.svg"
+              alt=""
+            />
+            <h3>Safer materials</h3>
+          </div>
+          <p class="pillars_text">
+            We are dedicated to substituting potentially harmful chemicals by
+            making safer options one of our fundamental operating guidelines
+          </p>
+        </div>
+        <div class="displaynone" id="emissions_text">
+          <div class="box_heading">
+            <img
+              class="box_heading_image"
+              src="/wp-content/uploads/allnex-ecowise-icons-sustainability-programm-01.svg"
+              alt=""
+            />
+            <h3>Emissions reduction</h3>
+          </div>
+
+          <p class="pillars_text">
+            We strive to decrease the emissions of volatile organic solvents
+            throughout the product lifecycle to protect people and our
+            environment
+          </p>
+        </div>
+        <div class="displaynone" id="goals_text">
+          <h3>Sustainable Development Goals</h3>
+          <p class="pillars_text">
+           	allnex has adopted Environmental, Social and Governance (ESG) practices in close alignment with the <strong>UN&#39;s 17 Sustainable Development Goals</strong> (SDG).
+			<br>
+			<br>
+			Our strategy has been to focus on SDG <strong>#7, #12 and #13</strong> for maximum impact.
+			These 3 goals particularly lend themselves to allnex&#39;s contributions.
+			</p>
+          <img
+            class="sustainable_goals_img"
+            src="/wp-content/uploads/allnexSustainableDevelopmentGoals.svg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <!--  middle circle image sections -->
+      <div id="skills">
+        <img
+          class="goals animate middle circle"
+          id="middle_circle"
+          src="/wp-content/uploads/wheelspiller.svg"
+        />
+
+        <img class="circle_outline" src="/wp-content/uploads/outline9.svg" />
+
+        <!-- circular economy -->
+        <div id="part1" class="circle animate">
+          <img
+            class="circular"
+            id="circular"
+            src="/wp-content/uploads/circular.svg"
+          />
+        </div>
+
+        <div id="part2" class="circle animate">
+          <img
+            class="renewable"
+            id="renewable"
+            src="/wp-content/uploads/renewable.svg"
+          />
+        </div>
+
+        <div id="part3" class="circle animate">
+          <img
+            class="energy"
+            id="energy"
+            src="/wp-content/uploads/energy.svg"
+          />
+        </div>
+
+        <div id="part4" class="circle animate">
+          <img class="safer" id="safer" src="/wp-content/uploads/safe.svg" />
+        </div>
+
+        <div id="part5" class="circle animate">
+          <img
+            class="emissions"
+            id="emissions"
+            src="/wp-content/uploads/emissions.svg"
+          />
+        </div>
+      </div>
+    </div>
+    <script>
+      const standard = document.getElementById("standard_text");
+      const circular_1 = document.getElementById("part1");
+      const circular_2 = document.getElementById("circular");
+      const circularText = document.getElementById("circular_text");
+      const renewable_1 = document.getElementById("part2");
+      const renewable_2 = document.getElementById("renewable");
+      const renewableText = document.getElementById("renewable_text");
+      const energy_1 = document.getElementById("part3");
+      const energy_2 = document.getElementById("energy");
+      const energyText = document.getElementById("energy_text");
+      const safer_1 = document.getElementById("part4");
+      const safer_2 = document.getElementById("safer");
+      const saferText = document.getElementById("safer_text");
+      const emissions_1 = document.getElementById("part5");
+      const emissions_2 = document.getElementById("emissions");
+      const emissionsText = document.getElementById("emissions_text");
+      const middleCircle = document.getElementById("middle_circle");
+      const goalsText = document.getElementById("goals_text");
+ const mql = window.matchMedia("(max-width: 767px)");
+      
+      let activated = false;
+
+      // circular economy script
+      // element_1 refers to the circle segment div
+      // element_2 refers to the svg in the segment. i couldn't target theses togeter so there is mouse enter and mouse leave for both making a total of 20 event listeners.
+      // I'm sure this could be done better but it works :)
+
+
+      circular_1.addEventListener("mouseover", () => {
+        circularText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+        renewable_1.classList.add("opaque");
+        energy_1.classList.add("opaque");
+        safer_1.classList.add("opaque");
+        emissions_1.classList.add("opaque");
+        middleCircle.classlist.add("opaque");
+      });
+
+      circular_1.addEventListener("mouseleave", () => {
+        circularText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+        renewable_1.classList.remove("opaque");
+        energy_1.classList.remove("opaque");
+        safer_1.classList.remove("opaque");
+        emissions_1.classList.remove("opaque");
+        middleCircle.classlist.remove("opaque");
+      });
+
+      circular_2.addEventListener("mouseover", () => {
+        circularText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+      });
+
+      circular_2.addEventListener("mouseleave", () => {
+        circularText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+      });
+
+      // renewable economy script
+      renewable_1.addEventListener("mouseover", () => {
+        renewableText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+        circular_1.classList.add("opaque");
+        energy_1.classList.add("opaque");
+        safer_1.classList.add("opaque");
+        emissions_1.classList.add("opaque");
+        middleCircle.classlist.add("opaque");
+        circularText.classList.add("displaynone");
+        circular_1.classList.remove("animate_mobile");
+      });
+
+      renewable_1.addEventListener("mouseleave", () => {
+        renewableText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+        circular_1.classList.remove("opaque");
+        energy_1.classList.remove("opaque");
+        safer_1.classList.remove("opaque");
+        emissions_1.classList.remove("opaque");
+        middleCircle.classlist.remove("opaque");
+      });
+
+      renewable_2.addEventListener("mouseover", () => {
+        renewableText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+        circularText.classList.add("displaynone");
+        circular_1.classList.remove("animate_mobile");
+      });
+
+      renewable_2.addEventListener("mouseleave", () => {
+        renewableText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+      });
+
+      // energy economy script
+      energy_1.addEventListener("mouseover", () => {
+        energyText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+        circular_1.classList.add("opaque");
+        renewable_1.classList.add("opaque");
+        safer_1.classList.add("opaque");
+        emissions_1.classList.add("opaque");
+        middleCircle.classlist.add("opaque");
+        circularText.classList.add("displaynone");
+        circular_1.classList.remove("animate_mobile");
+      });
+
+      energy_1.addEventListener("mouseleave", () => {
+        energyText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+        circular_1.classList.remove("opaque");
+        renewable_1.classList.remove("opaque");
+        safer_1.classList.remove("opaque");
+        emissions_1.classList.remove("opaque");
+        middleCircle.classlist.remove("opaque");
+      });
+
+      energy_2.addEventListener("mouseover", () => {
+        energyText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+        circularText.classList.add("displaynone");
+        circular_1.classList.remove("animate_mobile");
+      });
+
+      energy_2.addEventListener("mouseleave", () => {
+        energyText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+      });
+
+      // safer economy script
+      safer_1.addEventListener("mouseover", () => {
+        saferText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+        circular_1.classList.add("opaque");
+        renewable_1.classList.add("opaque");
+        energy_1.classList.add("opaque");
+        emissions_1.classList.add("opaque");
+        middleCircle.classlist.add("opaque");
+        circularText.classList.add("displaynone");
+        circular_1.classList.remove("animate_mobile");
+      });
+
+      safer_1.addEventListener("mouseleave", () => {
+        saferText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+        circular_1.classList.remove("opaque");
+        renewable_1.classList.remove("opaque");
+        energy_1.classList.remove("opaque");
+        emissions_1.classList.remove("opaque");
+        middleCircle.classlist.remove("opaque");
+      });
+
+      safer_2.addEventListener("mouseover", () => {
+        saferText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+        circularText.classList.add("displaynone");
+        circular_1.classList.remove("animate_mobile");
+      });
+
+      safer_2.addEventListener("mouseleave", () => {
+        saferText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+      });
+
+      // safer emissions script
+      emissions_1.addEventListener("mouseover", () => {
+        emissionsText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+        circular_1.classList.add("opaque");
+        renewable_1.classList.add("opaque");
+        energy_1.classList.add("opaque");
+        safer_1.classList.add("opaque");
+        middleCircle.classlist.add("opaque");
+        circularText.classList.add("displaynone");
+        circular_1.classList.remove("animate_mobile");
+      });
+
+      emissions_1.addEventListener("mouseleave", () => {
+        emissionsText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+        circular_1.classList.remove("opaque");
+        renewable_1.classList.remove("opaque");
+        energy_1.classList.remove("opaque");
+        safer_1.classList.remove("opaque");
+        middleCircle.classlist.remove("opaque");
+      });
+
+      emissions_2.addEventListener("mouseover", () => {
+        emissionsText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+        circularText.classList.add("displaynone");
+        circular_1.classList.remove("animate_mobile");
+      });
+
+      emissions_2.addEventListener("mouseleave", () => {
+        emissionsText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+      });
+
+      // middle circle
+
+      middleCircle.addEventListener("mouseover", () => {
+        renewable_1.classList.add("opaque");
+        circular_1.classList.add("opaque");
+        energy_1.classList.add("opaque");
+        safer_1.classList.add("opaque");
+        emissions_1.classList.add("opaque");
+        circularText.classList.add("displaynone");
+        circular_1.classList.remove("animate_mobile");
+      });
+
+      middleCircle.addEventListener("mouseleave", () => {
+        renewable_1.classList.remove("opaque");
+        circular_1.classList.remove("opaque");
+        energy_1.classList.remove("opaque");
+        safer_1.classList.remove("opaque");
+        emissions_1.classList.remove("opaque");
+        
+      });
+      middleCircle.addEventListener("mouseover", () => {
+        goalsText.classList.remove("displaynone");
+        standard.classList.add("displaynone");
+        circularText.classList.add("displaynone");
+        circular_1.classList.remove("animate_mobile");
+      });
+
+      middleCircle.addEventListener("mouseleave", () => {
+        goalsText.classList.add("displaynone");
+        standard.classList.remove("displaynone");
+      });
+    </script>
+  </body>
+</html>
